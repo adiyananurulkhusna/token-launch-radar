@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Radar — pre-token protocols ranked by implied value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="dot" aria-hidden="true"></span> Token Radar</div>
+  <div class="meta" id="meta">Snapshot — DefiLlama protocol index</div>
+</header>
+
+<main>
+  <section class="hero">
+    <h1 id="lede">Pre-token protocols, ranked by implied value</h1>
+    <p id="lede-sub">The watchlist is the floor: every protocol with at least $50M of TVL and no token on record. The early radar adds every other pre-token protocol below that floor. Implied value is a model, not a promise.</p>
+    <div class="stats" id="stats"></div>
+  </section>
+
+  <section class="controls" aria-label="Filters">
+    <label>Search <input id="q" type="search" placeholder="Search name or chain" autocomplete="off"></label>
+    <label>Category <select id="cat"><option value="">All categories</option></select></label>
+    <label>Chain <select id="chain"><option value="">All chains</option></select></label>
+    <label>Min TVL <select id="min">
+      <option value="0">Any TVL</option>
+      <option value="100000000">≥ $100M</option>
+      <option value="50000000">≥ $50M</option>
+      <option value="10000000">≥ $10M</option>
+    </select></label>
+    <label>Sort <select id="sort">
+      <option value="implied">Implied value</option>
+      <option value="tvl">TVL</option>
+      <option value="growth">7d change</option>
+      <option value="age">Age</option>
+      <option value="name">Name</option>
+    </select></label>
+    <label class="check"><input id="watch" type="checkbox"> Watchlist only</label>
+  </section>
+
+  <div class="tabs" role="tablist">
+    <button id="tab-pre" class="tab active" role="tab" aria-selected="true">Pre-token</button>
+    <button id="tab-live" class="tab" role="tab" aria-selected="false">Live token — set aside</button>
+    <span class="count" id="count"></span>
+  </div>
+
+  <section class="table-wrap">
+    <p class="table-note" id="table-note">Pre-token protocols, strongest implied value first. Select a row for its model and farm plan.</p>
+    <table id="board">
+      <thead><tr>
+        <th class="num">Rank</th><th>Protocol</th><th class="num">TVL</th>
+        <th class="num">7d</th><th class="num">Age</th><th>Implied value</th><th>Token</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <p class="empty" id="empty" hidden>No protocols match these filters.</p>
+  </section>
+
+  <section class="model" id="model">
+    <h2>How the implied value is built</h2>
+    <p class="formula">implied = TVL × category multiple × growth × maturity × reach</p>
+    <p>Every factor comes from this snapshot, not from a list of names. The <strong>category multiple</strong> is the median market-cap / TVL of live-token protocols in the same category; a category with fewer than three live comparables falls back to the global median. <strong>Growth</strong> is the 7-day TVL change, clamped, worth at most ±30%. <strong>Maturity</strong> runs from 0.70 for a protocol listed yesterday to 1.00 after three years. <strong>Reach</strong> adds 4% per extra chain, up to +20%. Move the sliders to see how sensitive the ranking is — the board above uses the defaults.</p>
+    <div class="sandbox">
+      <label>Growth weight <span class="val" id="gw-val">0.35</span>
+        <input id="gw" type="range" min="0" max="0.6" step="0.05" value="0.35"></label>
+      <label>Maturity floor <span class="val" id="mf-val">0.70</span>
+        <input id="mf" type="range" min="0.5" max="0.9" step="0.05" value="0.7"></label>
+      <button id="reset" type="button">Reset to model defaults</button>
+      <span class="sandbox-note" id="sandbox-note">Sandbox matches the board at the defaults.</span>
+    </div>
+    <div class="mults" id="mults"></div>
+  </section>
+
+  <section class="method">
+    <h2>What this radar does — and does not — claim</h2>
+    <ul>
+      <li><strong>“Records no token” is a snapshot fact, not a promise.</strong> It means the snapshot's fields for that protocol are all empty. A token could exist under another name, or launch tomorrow.</li>
+      <li><strong>Implied value is this entry's model.</strong> It says what a protocol would be worth if it traded at its category's median multiple. It is not a price, a prediction, or a guarantee of an airdrop.</li>
+      <li><strong>Farm plans are generic playbooks</strong> — a fresh wallet, the protocol's main product, a weekly cadence, a 30-day hold, and a written log. They cost real gas on real chains; the costs shown are per-transaction estimates for the protocol's main chain.</li>
+      <li><strong>Live-token protocols are set aside</strong> in their own tab. They are the comparables the multiples come from, not the radar's targets.</li>
+      <li>Data: DefiLlama protocol index, snapshot 2026-11-14. No external data is fetched by this page.</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <p>Token Radar — built for the make.fun token-radar-01 bounty. Snapshot 2026-11-14. Implied values are a model, not prices.</p>
+</footer>
+
+<aside class="drawer" id="drawer" aria-label="Protocol detail" hidden>
+  <button class="close" id="drawer-close" type="button" aria-label="Close detail">×</button>
+  <div id="drawer-body"></div>
+</aside>
+
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
