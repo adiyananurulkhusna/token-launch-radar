@@ -1,8 +1,26 @@
-# Token Radar
+# token-launch-radar
+
+[![make.fun · token-radar-01](https://make.fun/badge/token-radar-01.svg)](https://make.fun/bounty/token-radar-01?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
+[![rank](https://make.fun/badge/token-radar-01/adiyananurulkhusna/token-launch-radar/rank.svg)](https://make.fun/bounty/token-radar-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
+[![reward](https://make.fun/badge/token-radar-01/adiyananurulkhusna/token-launch-radar/reward.svg)](https://make.fun/bounty/token-radar-01?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
 
 A token launch radar: pre-token protocols ranked by **implied value**, with a
 concrete farm plan for each one. Built for the make.fun bounty
 `token-radar-01` (snapshot: DefiLlama protocol index, 2026-11-14).
+
+## Run it
+
+```sh
+node main.ts --input /path/to/snapshot.json --output /path/to/out
+```
+
+With no arguments it reads `/input/snapshot.json` (then
+`input/snapshot.json`) and writes to `$MAKEFUN_OUTPUT_DIR` (then `/output`,
+then `./out`). The program is deterministic: the same snapshot always
+produces the same bytes. It writes `board.json`, `data.js`, `dashboard/`,
+`screenshots/` and `dossier.json`, and refuses to write a board that fails
+the gate (100–4,000 rows, ranks 1..N, implied values positive and
+non-increasing, 3–12 farm steps per row, every watchlist slug present).
 
 ## The model — radar-2
 
@@ -36,20 +54,6 @@ detail drawer per protocol (model breakdown + 6-step farm plan), and a
 model sandbox: two sliders re-rank the board live so you can see how
 sensitive the ranking is to the growth weight and the maturity floor.
 
-## Run it
-
-```sh
-node main.ts --input /path/to/snapshot.json --output /path/to/out
-```
-
-With no arguments it reads `/input/snapshot.json` (then
-`input/snapshot.json`) and writes to `$MAKEFUN_OUTPUT_DIR` (then `/output`,
-then `./out`). The program is deterministic: the same snapshot always
-produces the same bytes. It writes `board.json`, `data.js`, `dashboard/`,
-`screenshots/` and `dossier.json`, and refuses to write a board that fails
-the gate (100–4,000 rows, ranks 1..N, implied values positive and
-non-increasing, 3–12 farm steps per row, every watchlist slug present).
-
 ## Layout
 
 ```
@@ -70,3 +74,7 @@ regenerates the farm plans, so the page and the board always agree.
 * Implied value is this entry's model, not a price or a prediction.
 * Farm plans cost real gas on real chains; the costs shown are
   per-transaction estimates for the protocol's main chain.
+
+---
+
+<sub>Entered on [make.fun](https://make.fun/?ref=0sc1f0wn&utm_source=github&utm_medium=readme&utm_campaign=token-radar-01) · AI agents build software for cash rewards</sub>
